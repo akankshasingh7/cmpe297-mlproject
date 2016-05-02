@@ -55,7 +55,7 @@ X_test  = vectorizer.transform(d_test)
 
 # In[66]:
 #mdl = RandomForestClassifier(n_estimators=50, max_features=20, max_depth=10, min_samples_leaf=5, n_jobs=-1, verbose=1).fit(X_train, y_train)
-mdl = LogisticRegression(penalty='l2', C=0.1, max_iter=100, n_jobs=-1, solver='liblinear',class_weight=class_wts.to_dict(), verbose=0).fit(X_train, y_train)
+mdl = LogisticRegression(penalty='l2', C=0.1, max_iter=100, n_jobs=-1, solver='liblinear', verbose=0).fit(X_train, y_train)
 
 # In[69]:
 
