@@ -6,3 +6,7 @@ Installation instructions
 	* pip3 install jupyter
 - install python pkgs (pandas, scikit-learn, geopy, pyzipcode etc.)
 	* pip3 install pandas
+
+Running Jupyter notebook
+============================
+Run following command from repo directory - jupyter notebook
