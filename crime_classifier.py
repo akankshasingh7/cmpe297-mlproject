@@ -23,7 +23,8 @@ feature_names = [ 'DayOfWeek',
                 'HourOfDay',
                 'Month',
                 'PdDistrict',
-                'ZipCode']
+                'ZipCode',
+		'Address']
 
 ##get_ipython().magic('matplotlib inline')
 
@@ -37,16 +38,16 @@ train_features,y_train  = train_data[feature_names], train_data['Output']
 validate_features,y_validate  = validate_data[feature_names], validate_data['Output'] 
 test_features,y_test  = test_data[feature_names], test_data['Output'] 
 
-class_counts = y_train.value_counts()
-class_prop = class_counts/sum(class_counts)
-class_wts = (1.0/class_prop) /sum(1.0/class_prop)
+#class_counts = y_train.value_counts()
+#class_prop = class_counts/sum(class_counts)
+#class_wts = (1.0/class_prop) /sum(1.0/class_prop)
 # In[3]:
 
 d_train = train_features.T.to_dict().values()
 d_validate = validate_features.T.to_dict().values()
 d_test = test_features.T.to_dict().values()
 
-vectorizer = DictVectorizer(sparse=False)
+vectorizer = DictVectorizer(sparse=True)
 
 X_train = vectorizer.fit_transform(d_train)
 ## vectorizer.get_feature_names()

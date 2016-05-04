@@ -18,6 +18,8 @@ top_crimes = [
     'FORGERY/COUNTERFEITING',\
     'SECONDARY CODES']
 
+rm_crimes = ['PORNOGRAPHY/OBSCENE MAT', 'TREA']
+
 def HourOfDay(df):
     ft = df.map(lambda x: x.hour)
     feat = pd.cut(ft, bins = [0,3,6,9,12,15,18,21,24], right=False)
@@ -34,6 +36,11 @@ def ZipCode(df):
     feat.name = 'ZipCode'
     return feat
 
+def Address(df):
+    feat = df.apply(lambda x: x.split("of")[1].strip() if x.find("/") < 0 else x)
+    feat.name = 'Address'
+    return feat
+
 
 
 sf_crime = pd.read_csv('data/train.csv', quotechar='"')
@@ -45,6 +52,7 @@ data = sf_crime.merge(sf_locs[['Location','ZipCode']], how='left', on='Location'
 data['DateTime'] = pd.to_datetime(data['Dates'])
 data['Output'] = data['Category']
 data.loc[~data['Output'].isin(top_crimes), 'Output'] = 'MINOR CRIMES'
+##data = data[~data['Output'].isin(rm_crimes)] 
 data.shape
 
 dataset = pd.DataFrame(index=data.index)
@@ -56,6 +64,7 @@ dataset = dataset.join(HourOfDay(data['DateTime']))
 dataset = dataset.join(Month(data['DateTime']))
 dataset = dataset.join(data['PdDistrict'])
 dataset = dataset.join(ZipCode(data['ZipCode']))
+dataset = dataset.join(Address(data['Address']))
 
 rn = np.random.rand(len(dataset))
 msk1 = rn <= 0.6
