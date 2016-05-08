@@ -9,9 +9,9 @@ sf_crime['Location'] = sf_crime['Y'].astype(str).str.cat(sf_crime['X'].astype(st
 data = sf_crime.merge(sf_locs[['Location','ZipCode']], how='left', on='Location')
 data.drop('Location', axis=1, inplace=True)
 
-topcats = data['Category'].value_counts().index.tolist()[14:]
-data['Target'] = data['Category']
-data.loc[data['Target'].isin(topcats), 'Target'] = 'OTHER CRIMES'
+#topcats = data['Category'].value_counts().index.tolist()[14:]
+#data['Target'] = data['Category']
+#data.loc[data['Target'].isin(topcats), 'Target'] = 'OTHER CRIMES'
 
 rn = np.random.rand(len(data))
 msk = rn <= 0.7
